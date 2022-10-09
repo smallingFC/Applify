@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="extra-padding">Error: Account Does Not Exist</h3>
+    <div class="extra-padding">
+        <p>It looks like you're trying to login to PerDiem with an email address we do not have in our records. Please try <a data-open="login-modal">a different email address</a> or trying <a href="{% url 'register' %}">registering a new account</a> instead.</p>
+    </div>
+{% endblock %}

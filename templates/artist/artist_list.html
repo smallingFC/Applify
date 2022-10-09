@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/artist/artist_list.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    <h2>Artists</h2>
+    <div class="break">
+        <hr>
+    </div>
+    <div class="list-nav">
+        <div class="filter-sort-options center">
+            <ul class="dropdown menu" data-dropdown-menu data-options="disableHover:true; clickOpen:true;">
+                <li class="nav-float"><h6>Show me</h6></li>
+                {% if genres %}
+                    <li class="is-dropdown-submenu-parent opens-right nav-float">
+                        <a href="#"><h6 class="list-font">{{ active_genre }}</h6></a>
+                        <ul class="menu is-dropdown-submenu">
+                            {% if active_genre != 'All Genres' %}
+                                <li><a href="?genre=All%20Genres&sort={{ order_by.slug }}"><h6>All Genres</h6></a></li>
+                            {% endif %}
+                            {% for genre in genres %}
+                                {% if genre != active_genre %}
+                                    <li><a href="?genre={{ genre|urlencode }}&sort={{ order_by.slug }}"><h6 class="list-font">{{ genre }}</h6></a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+                <li class="nav-float">
+                    <button class="button hollow location" id="location-dropdown-button" type="button" data-toggle="location-dropdown">
+                        <h6>{% if distance %}within {{ distance }} miles{% endif %}
+                        FROM {% if lat and lon %}my location{% elif location %}{{ location }}{% else %}ANYWHERE{% endif %}</h6>
+                    </button>
+                    <div class="dropdown-pane" id="location-dropdown" data-dropdown>
+                        <h6>within</h6>
+                        <div class="row">
+                            <div class="small-8 columns">
+                                <div class="slider" data-slider data-initial-start="{% firstof distance 50 %}">
+                                    <span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="slider-miles"></span>
+                                    <span class="slider-fill" data-slider-fill></span>
+                                </div>
+                            </div>
+                            <div class="small-4 columns">
+                                <input type="number" id="slider-miles">
+                            </div>
+                        </div>
+                        <h6>miles of</h6>
+                        <div class="input-group" id="text-location" {% if lat and lon %}style="display: none;"{% endif %}>
+                            <input class="input-group-field" type="text" placeholder="Los Angeles, CA" value="{% firstof location '' %}" />
+                            <div class="input-group-button">
+                                <button class="button"><i class="fa fa-map-marker"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group" id="my-location" {% if not lat or not lon %}style="display: none;"{% endif %}>
+                            <input class="input-group-field disabled" type="text" value="My Location" disabled />
+                            <div class="input-group-button">
+                                <button class="button">&times;</button>
+                            </div>
+                        </div>
+                        <br />
+                        <button id="location-update-button" class="button">Update</button>
+                        <button id="location-reset-button" class="button">Reset</button>
+                    </div>
+                </li>
+                <li class="nav-float"><h6>sorted by</h6></li>
+                <li class="is-dropdown-submenu-parent opens-right nav-float">
+                    <a href="#"><h6 class="list-font">{{ order_by.name }}</h6></a>
+                    <ul class="menu is-dropdown-submenu">
+                        {% for option in sort_options %}
+                            {% if option.slug != order_by.slug %}
+                                <li><a href="?genre={{ active_genre }}&sort={{ option.slug }}"><h6 class="list-font">{{ option.name }}</h6></a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p class="getting-location">Getting your location...</p>
+    {% if geocoder_failed %}
+        <div class="callout warning">
+            <p>Geocoding failed. Results may not be properly filtered by location. Please try this filter again later.</p>
+        </div>
+    {% endif %}
+    <div class="row small-up-1 medium-up-2 large-up-4 artistlist">
+        {% for artist in artists %}
+            <div class="column">
+                <div class="artist-list-image img-list">
+                    {% include "object_preview.html" with object=artist img=artist.photo.img %}
+                    {% with latest_campaign=artist.latest_campaign %}
+                        {% if not latest_campaign %}
+                            <h2 class="artist-list-overlay banner-coming">COMING SOON</h2>
+                        {% elif latest_campaign.percentage_funded == 100 %}
+                            <h2 class="artist-list-overlay banner-funded">FUNDED</h2>
+                        {% elif latest_campaign.open %}
+                            <h2 class="artist-list-overlay banner-active">ACTIVE</h2>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                {% if order_by.slug == 'funded' %}
+                    <p class="artist-details artist-location">
+                        {% if artist.funded %}
+                            {{ artist.funded }}% Funded
+                        {% else %}
+                            No campaigns yet
+                        {% endif %}
+                    </p>
+                {% elif order_by.slug == 'time-remaining' %}
+                    <p class="artist-details artist-location">
+                        {% if artist.campaign_end_datetime|timesince >= "1 min" %}
+                            Time since: {{ artist.campaign_end_datetime|timesince }}
+                        {% elif artist.campaign_end_datetime|timeuntil >= "1 min" %}
+                            Time to go: {{ artist.campaign_end_datetime|timeuntil }}
+                        {% elif artist.campaign_set.all %}
+                            No end date set
+                        {% else %}
+                            No campaigns yet
+                        {% endif %}
+                    </p>
+                {% elif order_by.slug == 'investors' %}
+                    <p class="artist-details artist-location"># Investors: {{ artist.num_investors }}</p>
+                {% elif order_by.slug == 'raised' %}
+                    <p class="artist-details artist-location">Amount raised: ${{ artist.amount_raised|intcomma }}</p>
+                {% elif order_by.slug == 'valuation' %}
+                    <p class="artist-details artist-location">
+                        {% if artist.valuation %}
+                            Valuation: ${{ artist.valuation|intcomma }}
+                        {% else %}
+                            No campaigns yet
+                        {% endif %}
+                    </p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Can't find what you are looking for. Try expanding your search criteria.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script type="text/javascript">
+        var my_location = {% if lat and lon %}true{% else %}false{% endif %};
+        var active_genre = '{{ active_genre|escapejs }}';
+        var order_by = '{{ order_by.slug|escapejs }}';
+    </script>
+    <script type="text/javascript" src="{% static "js/artist/artist-list.js" %}"></script>
+{% endblock %}

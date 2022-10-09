@@ -1,0 +1,25 @@
+{% load markdown_deux_tags %}
+
+<div class="update-container">
+    <ul class="menu vertical nested is-active updates">
+        {% for update in updates %}
+                <li id="update-{{ update.id }}">
+                    <div class="break">
+                        <hr>
+                    </div>
+                    {% if show_artist_name %}
+                        <h3>{{ update.artist.name }}</h3>
+                    {% endif %}
+                    <h4>
+                        {{ update.title }}
+                        {% if has_permission_to_submit_update %}
+                            <button id="update-{{ update.id }}" class="button delete-update"><i class="fa fa-trash"></i></button>
+                        {% endif %}
+                    </h4>
+                    {% include "artist/includes/artist_update_media.html" with update=update embed=True %}
+                    <p><small>[{{ update.created_datetime }}]</small></p>
+                    <p>{{ update.text|markdown }}</p>
+                </li>
+        {% endfor %}
+    </ul>
+</div>

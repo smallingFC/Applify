@@ -1,0 +1,49 @@
+{% load humanize %}
+{% load thumbnail %}
+{% load markdown_deux_tags %}
+{% load perdiem %}
+
+<div class="tabs-panel {% if not form.errors %}is-active{% endif %}" id="overview">
+
+    <!-- Photo -->
+    {% thumbnail artist.photo.img "500x500" as thumb %}
+        <div class="photo-left">
+            <img class="dropshadow" src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{ artist.name }}" />
+        </div>
+    {% endthumbnail %}
+
+    <!-- Genre -->
+    {% with genres=artist.genres.all %}
+        <h4 class="strong">
+            {{ genres|length|pluralize }} {{ genres|join:" / " }}
+            // {{ artist.location }}
+        </h4>
+    {% endwith %}
+
+    {% if artist.playlist_set.exists %}
+        <div class="artist-detail-padding">
+            {% for playlist in artist.playlist_set.all %}
+                {{ playlist.html|safe }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="break">
+        <hr>
+    </div>
+
+    <!-- Bio -->
+    {% if artist.bio %}
+        <div class="artist-detail-padding">
+            {{ artist.bio.bio|markdown:'trusted' }}
+        </div>
+    {% endif %}
+
+    <!-- Socials -->
+    {% for social in artist.social_set.all %}
+        <a href="{{ social.url }}"><i class="fa fa-{{ social.get_medium_display|lower }} fa-2x social-padding" aria-hidden="true"></i></a>
+    {% endfor %}
+    <div class="break">
+        <hr>
+    </div>
+</div>

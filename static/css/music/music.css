@@ -1,0 +1,47 @@
+.investor-download {
+    font-size: 20px;
+}
+
+.marketplace-icons {
+    height: 40px;
+    padding: 5px;
+}
+
+.album-bio {
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 600px;
+}
+
+.album-bio > ol {
+    text-align: center;
+    list-style-position: inside;
+}
+
+.marketplace-container {
+    text-align: center;
+    padding: 20px;
+    height: 100px;
+}
+
+.download-button {
+    text-align: center;
+    background-color: #4A96AD;
+    width: 150px;
+    margin: 0 auto;
+    padding: 10px;
+    color: #fff;
+}
+
+.download-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.chart-container {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 800px;
+}

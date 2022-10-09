@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="contact-padding">
+        <h3 class="extra-padding">Contact Form</h3>
+        <div class="break">
+            <hr>
+        </div>
+        <div class="large-form-input">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="button submit-button" type="submit" value="Submit" />
+            </form>
+        </div>
+        <div class="break">
+            <hr>
+        </div>
+        <h4>Are you an artist? Interested in being on PerDiem?</h4>
+        <div class="apply-button">
+            <a href="{% url 'artist_application' %}" class="button">Sign Up</a>
+            <div class="break">
+                <hr>
+            </div>
+        </div>
+    </div>
+{% endblock %}

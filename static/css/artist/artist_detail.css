@@ -1,0 +1,212 @@
+h1, li, p, {
+    color: #000;
+}
+
+.container {
+    text-align: center;
+}
+
+#countdown-wrap {
+    height: 150px;
+}
+
+.invest-num-shares {
+    margin-bottom: 5px;
+}
+
+.invest-num-shares > button {
+    display: inline-block;
+    margin: 0;
+}
+
+.invest-num-shares > input {
+    display: inline-block;
+    margin: 0;
+    width: 75px;
+    text-align: right;
+}
+
+#investor-block {
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: #ecf0f1;
+    text-align: center;
+}
+
+.artist-detail-padding {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.social-padding {
+    padding: 20px;
+    color: black;
+}
+
+.past-campaign {
+    margin: 0 auto;
+    max-width: 800px;
+    background-color: #ecf0f1;
+}
+
+.total-cost {
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+.total-cost h4 {
+    display: inline-block;
+}
+
+.artist-photo-header {
+    height: 100%;
+    width: 100%;
+}
+
+.buy {
+    background-color: #22bb5b;
+    height: 70px;
+    width: 200px;
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.buy:hover {
+    background-color: #249c51;
+}
+
+.buy:focus {
+    background-color: #249c51;
+}
+
+#shares {
+    height: 10px;
+    width: 10px;
+    border-radius: 5px;
+}
+
+.investing {
+    font-weight: bold;
+}
+
+.me-investing {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 5px;
+}
+
+.photo-left {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    margin-top: 20px;
+    float: center;
+}
+
+.buy-right {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    margin-top: 20px;
+    float: center;
+    min-width: 350px;
+}
+
+#share-buttons {
+    margin-bottom: 10px;
+}
+
+#share-buttons img {
+    width: 35px;
+    padding: 5px;
+    border: 0;
+    box-shadow: 0;
+    display: inline;
+}
+
+.login-box {
+    background-color: #2199e8;
+    padding: 15px;
+    margin: 20px;
+    text-align: center;
+    font-weight: 200;
+    font-size: 1.2em;
+    font-family: Dosis;
+    text-transform: uppercase;
+    width: 150px;
+    color: #fff;
+}
+
+.dropshadow {
+    box-shadow: 2px 2px 2px #888888;
+}
+
+.investing-copy {
+    margin: 0px;
+}
+
+.campaign-funded {
+    width: 300px;
+    height: 100%;
+    background-color: #249c51;
+    color: #fff;
+    font-size: 30px;
+    padding: 10px 10px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+p.days-remaining {
+    font-size: .7em;
+}
+
+.project-image {
+    padding: 20px;
+}
+
+.has-tip {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.total-amount {
+    font-size: 15px;
+    font-family: Dosis;
+    margin: 2px;
+}
+
+.strong {
+    font-weight: 400;
+}
+
+.artist-tab {
+    color: #4d96ad;
+    font-size: 16px !important;
+    text-transform: uppercase;
+}
+
+.remaining {
+    font-weight: 400;
+    padding: 10px;
+}
+
+.project-artwork {
+    height: 200px;
+    width: 200px;
+    background-color: #333333;
+    margin: 0 auto;
+}
+
+.project-details {
+    color: #85929e;
+    padding-top: 40%;
+    padding-right: 10%;
+    padding-left: 10%
+}
+
+.wmd-panel {
+    width: 100%;
+    margin: 0;
+}

@@ -1,0 +1,26 @@
+{% load humanize %}
+{% load perdiem %}
+
+<h3>Current Project</h3>
+<div class="profile-container">
+    <canvas id="myChart5"></canvas>
+</div>
+<ul>
+    {% if user_investor %}
+        <li class="me-investing">
+            My percentage:
+            {% if user_investor.percentage < 0.005 %}
+                &lt;0.01%
+            {% else %}
+                {{ user_investor.percentage|notrail_floatformat:2 }}%
+            {% endif %}
+        </li>
+    {% endif %}
+    {% for percentage_breakdown in campaign.project.artist_percentage %}
+        <li>{{ percentage_breakdown.name }}: {{ percentage_breakdown.percentage|notrail_floatformat:2 }}%</li>
+    {% endfor %}
+    <li>
+        {% if user_investor %}Other Investors:{% else %}Investors:{% endif %}
+        {{ fans_percentage|notrail_floatformat:2 }}%
+    </li>
+</ul>

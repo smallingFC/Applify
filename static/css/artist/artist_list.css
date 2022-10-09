@@ -1,0 +1,142 @@
+.getting-location {
+    display: none;
+}
+
+.filter-sort-options > ul {
+    display: inline-block;
+    text-align: center;
+}
+
+.artist-list-name {
+    color: #000;
+    padding-top: 10px;
+    text-transform: uppercase;
+    font-family: Dosis, sans-serif;
+}
+
+.filter-sort-options .menu > li {
+    padding: 0.2em 0.5em;
+}
+.filter-sort-options .menu > li > a {
+    padding: 0;
+}
+.filter-sort-options h5 {
+    display: inline-block;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    margin: 2px;
+    padding: 4px;
+}
+.filter-sort-options h6 {
+    text-transform: uppercase;
+}
+
+.location {
+    height: auto;
+    width: auto;
+    padding: 6px;
+    padding-bottom: 0px;
+}
+
+.artistlist {
+    margin: 20px;
+    padding: 10px;
+    max-width: 100%;
+} 
+
+.artistlist.row > .column {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #fff;
+    text-align: center;
+}
+
+.artistlist.row > .column > p {
+    color: #000;
+    text-transform: uppercase;
+}
+
+.break {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.column {
+    color: #ffffff;
+}
+
+.list-nav {
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 5px;
+}
+
+.nav-float {
+    float: left;
+}
+
+.artist-details {
+    font-family: Dosis, sans-serif;
+    margin: 0px;
+}
+
+.artist-name {
+    padding-top: 5px;
+    padding-bottom: 0px;
+}
+
+.artist-location {
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.artist-invested {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.artist-earned {
+    padding-top: 0px;
+    padding-bottom: 10px;
+    font-weight: 400;
+}
+
+.artist-list-image { 
+    position: relative; 
+}
+
+h2.artist-list-overlay { 
+    position: absolute; 
+    margin-bottom: 10px;
+    bottom: 10%; 
+    width: 100%;
+    max-width: 250px;
+    font-size: 25px;
+    color: #fff;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.banner-active {
+    background-color: #4A96AD;
+}
+
+.banner-funded {
+    background-color: #22bb5b;
+}
+
+.banner-coming {
+    background-color: #34495e;
+}
+
+.button.hollow.location {
+    border: none;
+    padding: 0px;
+    font-size: 1em;
+}
+
+.list-font {
+    color: #2199e8;
+}

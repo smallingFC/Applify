@@ -1,0 +1,8 @@
+<div class="tabs-panel small-form-input {% if form_name in forms_with_errors or is_default_form and not forms_with_errors %}is-active{% endif %}" id="{{ tab_name }}">
+    <form action="" method="POST" {% if includes_files %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ form_name }}" />
+        {% block form_inner_html %}{{ form.as_p }}{% endblock %}
+        <input type="submit" value="Update" />
+    </form>
+</div>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="extra-padding">Create An Artist Account</h3>
+    <div class="break">
+        <hr>
+    </div>
+    <h5>Want to learn more before signing up? Check out our <a href="{% url 'artist-resources' %}" target="_blank"><strong>Artist Resources</strong></a> page for more details</h5>
+    <div class="break">
+        <hr>
+    </div>
+    <div class="large-form-input">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p>
+                I understand that PerDiem will exclusively distribute the music project (free of charge) for the payback period listed in this form. All royalties (100%) will be split between the artist(s) and investors based on the artist(s)' terms.
+            </p>
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/artist/artist_preview.css" %}" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="{% static "css/profile/profile.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    <div class="center">
+        <br/><img class="public-profile-crop" src="{{ profile_user.userprofile.display_avatar_url }}" alt="Profile" />
+        <h3 class="public-profile-name">{{ profile_user.userprofile.get_display_name }}</h3>
+    </div>
+    <div>
+        <h2 class="green-color">${{ profile.total_earned|floatformat:2|intcomma }}</h2>
+    </div>
+    <div class="break">
+        <hr>
+    </div>
+    {% if profile.artists %}
+        <div class="investments">
+            <h3>PORTFOLIO</h3>
+            {% include "artist/includes/investor_profile_artist_list.html" with artists=profile.artists %}
+        </div>
+        <div class="break">
+            <hr>
+        </div>
+    {% else %}
+        <p>{{ profile_user.userprofile.get_display_name }} hasn't invested in anything yet!</p>
+    {% endif %}
+{% endblock %}

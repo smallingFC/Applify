@@ -1,0 +1,5 @@
+{% extends "object_preview.html" %}
+
+{% block text %}
+    <span class="text-content reveal-text"><span>{{ object.name }}<br />by {{ object.project.artist.name }}</span></span>
+{% endblock %}

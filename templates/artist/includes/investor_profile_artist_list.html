@@ -1,0 +1,27 @@
+{% load staticfiles %}
+{% load humanize %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/artist/artist_list.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+<div class="row small-up-1 medium-up-2 large-up-4 centered artistlist">
+    {% for artist in artists.values %}
+        <div class="column">
+            <div class="artist-list-image img-list">
+                {% include "object_preview.html" with object=artist img=artist.photo.img %}
+            </div>
+            {% if show_earnings %}
+                <div>
+                    <p class="green-color">
+                        {% if artist.total_earned %}
+                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                        {% endif %}
+                        ${{ artist.total_earned|floatformat:2|intcomma }} /
+                        <span class="color-grey">${{ artist.total_invested|floatformat:2|intcomma }}</span>
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

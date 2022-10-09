@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div id="register-page" class="page">
+        <h2 class="extra-padding">Register</h2>
+        <div class="break">
+            <hr>
+        </div>
+        <div class="page">
+            <div class="button-container">
+                <a class="facebook-font" href="{% url 'social:begin' backend='facebook-register' %}">
+                    <div class="sign-up-button facebook">
+                        <h5 class="button-font"><i class="fa fa-facebook button-icon-padding" aria-hidden="true"></i>Sign Up with Facebook</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="button-container">
+                <a class="google-font" href="{% url 'social:begin' backend='google-oauth2-register' %}">
+                    <div class="sign-up-button google">
+                        <h5 class="button-font"><i class="fa fa-google button-icon-padding" aria-hidden="true"></i>Sign Up with Google</h5>
+                    </div>
+                </a>
+            </div>
+            <form class="small-form-input" action="" method="POST">
+                {% csrf_token %}
+                <p class="color-grey">
+                    Username and password are case-sensitive
+                </p>
+                {{ form.as_p }}
+                <p>
+                    By clicking register, you agree to the <a href="{% url 'terms' %}">Terms & Conditions</a>
+                </p>
+                <input class="button submit-button" type="submit" value="Register" />
+            </form>
+        </div>
+    </div>
+{% endblock %}

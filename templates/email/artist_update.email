@@ -1,0 +1,15 @@
+{% extends "email/base.email" %}
+{% load markdown_deux_tags %}
+
+{% block email_subject %}{{ artist.name }}: {{ update.title|safe }}{% endblock %}
+
+{% block plain_body %}
+    {{ update.text|markdown|striptags }}
+
+    View the full update on the artist's page on PerDiem: {{ host }}{% url 'artist' slug=artist.slug %}.
+{% endblock %}
+
+{% block html_body %}
+    {% include "artist/includes/artist_update_media.html" with update=update embed=False %}
+    {{ update.text|markdown }}
+{% endblock %}

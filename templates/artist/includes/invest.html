@@ -1,0 +1,39 @@
+{% load staticfiles %}
+{% load humanize %}
+{% load perdiem %}
+
+{% if latest_campaign %}
+    {% with campaign=latest_campaign %}
+        {% if campaign.open %}
+            {% if request.user.is_authenticated %}
+                <div class="project-artwork">
+                    <h6 class="project-details">{{ campaign.project.reason }}</h6>
+                </div>
+                <h5 class="remaining">{{ campaign.num_shares_remaining }} shares remaining </h5>
+                <button id="invest-button" class="button buy" type="button">Invest ${{ DEFAULT_MIN_PURCHASE|floatformat:2 }}</button>
+                <div class="invest-num-shares">
+                    <button id="remove-shares" class="secondary hollow button disabled shares" type="button" disabled>-</button>
+                    <input type="number" min="1" max="{{ campaign.num_shares_remaining }}" value="{{ campaign.default_num_shares }}" />
+                    <button id="add-shares" class="secondary hollow button" type="button">+</button>
+                </div>
+                <h5>Number of Shares</h5>
+                <h5 class="total-amount">Total Cost: <span data-tooltip aria-haspopup="true" class="has-tip [tip-right] [radius round]" title="Transaction Fee (12.9% + $0.30)"><span id="shares-price"></span></span></h5>
+                <div class="break">
+                    <hr>
+                </div>
+                <h6>{{ artist.name }} is raising ${{ campaign.amount|intcomma }} and giving {{ campaign.fans_percentage }}% of sales from {{ campaign.project.reason }} to investors</h6>
+                <h6>The value of a share is ${{ campaign.value_per_share }}</h6>
+                <h6>Each share is worth {{ campaign.percentage_per_share|notrail_floatformat:2 }}% of {{ campaign.project.reason }} revenue</h6>
+                <h6>This project is valued at ${{ campaign.valuation }}</h6>
+            {% else %}
+                {% include "artist/includes/auth_buttons.html" %}
+                <h4>To invest in {{ artist.name }}</h4>
+            {% endif %}
+        {% else %}
+            {% if campaign.percentage_funded == 100 %}
+                <h3 class="campaign-funded">Sold Out</h3>
+            {% endif %}
+            <p><em>This campaign is no longer available {{ campaign.end_datetime|date:'F jS' }}</em></p>
+        {% endif %}
+    {% endwith %}
+{% endif %}

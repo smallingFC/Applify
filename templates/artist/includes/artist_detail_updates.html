@@ -1,0 +1,53 @@
+<div class="tabs-panel {% if form.errors %}is-active{% endif %}" id="updates">
+    {% if user.is_authenticated %}
+        {% if updates or has_permission_to_submit_update %}
+            <h3>LATEST HAPPENINGS</h3>
+            {% include "artist/includes/artist_updates.html" with updates=updates has_permission_to_submit_update=has_permission_to_submit_update %}
+            {% if has_permission_to_submit_update %}
+                <h2>POST AN UPDATE</h2>
+                <form action="" method="POST" enctype="multipart/form-data" class="update-container">
+                    {% csrf_token %}
+                    <ul class="tabs" data-tabs id="artist-update-form-media-tabs">
+                        <li class="tabs-title is-active"><a href="#image" aria-selected="true"><i class="fa fa-picture-o fa-2x tab-icon" aria-hidden="true"></i><span class="artist-tab">Photo</span></a></li>
+                        <li class="tabs-title"><a href="#video"><i class="fa fa-video-camera fa-2x tab-icon" aria-hidden="true"></i><span class="artist-tab">Video</span></a></li>
+                    </ul>
+
+                    <div class="tabs-content" data-tabs-content="artist-update-form-media-tabs">
+                        <div class="tabs-panel is-active" id="image">
+                            <p>
+                                {{ form.image.errors }}
+                                {{ form.image.label }}:
+                                {{ form.image }}
+                            </p>
+                        </div>
+                        <div class="tabs-panel" id="video">
+                            <p>
+                                {{ form.youtube_url.errors }}
+                                {{ form.youtube_url.label }}:
+                                {{ form.youtube_url }}
+                            </p>
+                        </div>
+                        <p>{{ form.non_field_errors }}</p>
+                        <p>
+                            {{ form.title.errors }}
+                            {{ form.title.label }}:
+                            <span class="textbox">{{ form.title }}</span>
+                        </p>
+                        <p>
+                            {{ form.text.errors }}
+                            {{ form.text.label }}:
+                            {{ form.text }}
+                        </p>
+                    </div>
+                    <input type="submit" value="Submit" />
+                </form>
+            {% endif %}
+        {% else %}
+            <p>This is where artists will share their updates.</p>
+            <p>Looks like they haven't posted yet, but when they do you'll see them right here</p>
+        {% endif %}
+    {% else %}
+        <h4>To View Updates</h4>
+        {% include "artist/includes/auth_buttons.html" %}
+    {% endif %}
+</div>

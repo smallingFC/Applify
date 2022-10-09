@@ -1,0 +1,21 @@
+.resources-container {
+    padding-left: 10%;
+    padding-right: 10%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.img-resources {
+    height: auto;
+    max-height: 500px;
+    max-width: 500px;
+    box-shadow: 1px 1px 1px 1px grey;
+    margin: 10px;
+}
+
+.list-copy {
+    color: #000;
+    font-family: Roboto;
+    font-size: .8em;
+    font-weight: 200;
+}

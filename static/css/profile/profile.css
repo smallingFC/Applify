@@ -1,0 +1,78 @@
+.profile-name {
+    color: #4d96ad;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.profile-stats {
+    margin: 0 auto;
+}
+
+.profile-container {
+  width: 80%;
+  margin: 15px auto;
+}
+
+.profile-earned {
+    font-size: 20px;
+    color: #4d96ad;
+}
+
+.profile-invested {
+    font-size: 20px;
+    color: #4d96ad;
+}
+
+.profile-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.canvas-profile {
+    text-align: center;
+    padding: 3em;
+}
+
+.public-profile-name {
+    padding: 5px;
+    font-weight: 400;
+    color: #285e6f;
+}
+
+.public-profile-crop {
+    height: 150px;
+    width: 150px;
+    border-radius: 150px;
+    text-align: center;
+    margin: 10px;
+}
+
+h2.profile-header {
+    text-align: center;
+    font-size: 25px;
+    padding: 10px;
+}
+
+p.profile-total {
+    text-align: center;
+    font-size: 18px;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Dosis, sans-serif;
+}
+
+h5.profile-total-header {
+    text-align: center;
+    font-size: 25px;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h5.profile-total {
+    text-align: center;
+    font-size: 25px;
+    padding: 0px;
+    font-weight: 400;
+}

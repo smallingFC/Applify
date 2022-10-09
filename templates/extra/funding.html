@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="extra-padding">How Much Should I Raise?</h2>
+    <form class="small-form-input">
+        <h4>I want to raise ($)</h4>
+        <input type="text" id="raiseInput" placeholder="1000" />
+        <h4>Percentage to Investors</h4>
+        <select type="text" id="percentageInput">
+            <option value=".10">10%</option>
+            <option value=".20">20%</option>
+            <option value=".30">30%</option>
+            <option value=".40">40%</option>
+            <option value=".50">50%</option>
+            <option value=".60">60%</option>
+            <option value=".70">70%</option>
+            <option value=".80">80%</option>
+            <option value=".90">90%</option>
+            <option value="1">100%</option>
+        </select>
+        <h4>Amount needed to break even<h4>
+        <h3 class="green-color">
+        $<span id="result"></span>
+        </h3>
+        <h4>Estimated streams Needed<h4>
+        <h3 class="green-color"><span id="streams"></span></h3>
+        <br />
+    </form>
+    <div class="center extra-padding">
+        <a class="button uppercase" onClick="divideBy()">Calculate</a>
+    </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+        const estimatedValuePerStream = 0.00357052;
+
+        function divideBy() {
+            const raiseAmount = $("#raiseInput").val();
+            const raisePercentage = $("#percentageInput").val();
+            const valuationTotal = raiseAmount / raisePercentage;
+            const streamTotal = (raiseAmount / raisePercentage) / estimatedValuePerStream;
+
+            const valuationTotalFormatted = Math.round(valuationTotal).toLocaleString();
+            const streamsTotalFormatted = Math.round(streamTotal).toLocaleString();
+
+            $("#result").text(valuationTotalFormatted);
+            $("#streams").text(streamsTotalFormatted);
+        }
+    </script>
+{% endblock %}

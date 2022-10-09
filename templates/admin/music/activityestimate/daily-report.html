@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static "css/admin/music/daily-report.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+  <p>Note: activity estimates will be entered in for {% now "DATE_FORMAT" %}.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ formset.non_form_errors }}
+    {{ formset.management_form }}
+
+    <table>
+      <tr>
+        <th>Artist</th>
+        <th>Track</th>
+        <th># Streams</th>
+        <th># Downloads</th>
+      </tr>
+
+      {% for form in formset %}
+        {{ form.non_field_errors }}
+        <tr>
+          <td>{{ form.track.initial.album.project.artist.name }}</td>
+          <td>{{ form.track.initial.name }}{{ form.track }}</td>
+          <td>{{ form.streams.errors }}{{ form.streams }}</td>
+          <td>{{ form.downloads.errors }}{{ form.downloads }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <input type="submit" />
+  </form>
+{% endblock %}

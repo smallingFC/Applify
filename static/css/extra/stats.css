@@ -1,0 +1,43 @@
+.leaderboard-padding {
+    width: 20%;
+    background-color: #fff;
+    height: 125px;
+}
+.leaderboard-padding:hover {
+    background-color: #fff;
+}
+
+.chart-name {
+    font-size: 15px;
+    padding: 0px;
+    margin: 0px;
+    color: black;
+}
+
+.leaderboard-table {
+    text-align: center;
+    margin: 20px;
+    display: inline-block;
+    float: center;
+    vertical-align: top;
+}
+
+.total-box {
+    background-color: #4D698E;
+    text-align: center;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+.chart-amount {
+    font-size: 15px;
+    color: #4cbd7e;
+    padding: 0px;
+    margin: 0px;
+    font-weight: 400;
+}
+
+.leaderboard {
+    margin: 10px auto;
+    max-width: 800px;
+}

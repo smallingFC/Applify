@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/home.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div id="home-page" class="home-page">
+            <style>
+                #home-page {
+                    background: linear-gradient(
+                        rgba(0, 0, 0, 0.5),
+                        rgba(0, 0, 0, 0.5)
+                        ), url("{% static "img/perdiem-background-profile.jpg" %}");
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-color: black;
+                }
+            </style>
+            <div class="header-position">
+                <h2 class="white-color header-text">Welcome, {% firstof user.get_full_name user.get_username %}!</h2>
+                <h4 class="white-color header-padding">See how your artists are doing</h4>
+                <div class="center extra-padding">
+                    <a class="button sign-up uppercase" href="{% url 'profile' %}"><h4 class="white-color">View Profile</h4></a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div id="home-page" class="home-page">
+            <style>
+                #home-page {
+                    background: linear-gradient(
+                        rgba(0, 0, 0, 0.5),
+                        rgba(0, 0, 0, 0.5)
+                        ), url("{% static "img/perdiem-background.jpg" %}");
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-color: black;
+                }
+            </style>
+            <div class="header-position">
+                <h2 class="white-color header-text">The best way to fund music</h2>
+                <h4 class="white-color header-padding">Invest in music from emerging artists</h4>
+            </div>
+            <div class="footer-position">
+                <a href="{% url 'home' %}#video-page">
+                    <h5>Learn More</h5>
+                    <i class="fa fa-chevron-down fa-1x color-grey" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+        <div id="video-page" class="about">
+            <h3 class="title">What is PerDiem?</h3>
+            <div class="youtube-responsive-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/M78Ep_qcnpA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="description-padding">
+                <p>
+                    <strong>PerDiem is a platform that allows anyone to invest in music.</strong> Artists can raise money by selling shares in their music and building a following of investors that literally have a vested interest in their success. Anyone can now invest in music and earn money based on the artist's success.
+                </p>
+            </div>
+        </div>
+        <div id="about" class="about">
+            <div id="column-wrapper">
+                <div id="leftcolumn">
+                    <img class="img-phone" src="{% static "img/perdiem-invest.png" %}">
+                </div>
+                <div id="rightcolumn">
+                    <h3 class="title">Buy and sell shares in music</h3>
+                    <p>
+                        <strong>We make it easy for anyone to invest in music.</strong> Never worry about contracts or legal fees. Artists can raise money by selling shares in their music projects. This gives people an incentive to fund the artists music as they can earn a return on their investment based on amount of sales.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="how-page" class="about">
+            <div id="column-wrapper">
+                <div id="leftcolumn">
+                    <h3 class="title">Track your earnings</h3>
+                    <p>
+                        <strong>We take care of everything.</strong> Investors can track all of their earnings from all of their artists in one place. Never worry about distribution, payments, and registration. All you have to do invest, promote your artists, and watch your money grow.
+                    </p>
+                </div>
+                <div id="rightcolumn">
+                    <img class="img-phone" src="{% static "img/perdiem-earnings.png" %}">
+                </div>
+            </div>
+        </div>
+        <div id="stats-page" class="about">
+            <img class="img-phone" src="{% static "img/perdiem-all-devices.png" %}">
+            <h3 class="title">Build your music portfolio</h3>
+            <p class="portfolio-padding">
+                <strong>Feel good about your investments.</strong> The public now has the opportunity to invest in music and progress the careers of artists and their music. Be part of the new music economy and start investing in music today.
+            </p>
+            <h5><a href="{% url 'investor-resources' %}">Learn More</a></h5>
+        </div>
+        <div id="invest-page" class="about">
+            <div class="break">
+                <hr>
+            </div>
+            <div id="column-wrapper">
+                <h3 class="title">Invest In Music</h3>
+                <h5>Buy shares in music. Create your music portfolio. Earn Money</h5>
+                <div class="center extra-padding">
+                    <a class="button sign-up uppercase" href="{% url 'register' %}?next={{ request.get_full_path }}">Start Investing</a>
+                </div>
+            </div>
+            <div>
+                <h3 class="title">For Artists</h3>
+                <h5>Funding, Distribution, Payments, and everything else you'll ever need</h5>
+                <div class="center extra-padding">
+                    <a class="button sign-up uppercase" href="{% url 'artist_application' %}">Raise Money</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block extrajs %}
+    <script type="text/javascript" src="{% static "js/vendor/smooth-scroll.js" %}"></script>
+{% endblock %}

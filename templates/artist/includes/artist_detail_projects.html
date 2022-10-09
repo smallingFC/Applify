@@ -1,0 +1,25 @@
+{% load staticfiles %}
+{% load humanize %}
+{% load thumbnail %}
+{% load markdown_deux_tags %}
+{% load perdiem %}
+{% load music %}
+
+<div class="tabs-panel" id="projects">
+    {% if campaign %}
+        {% include "artist/includes/artist_current_project.html" %}
+    {% endif %}
+    {% if latest_campaign and latest_campaign.project.generated_revenue %}
+        <br/>
+        <h5>
+            ${{ latest_campaign.project.generated_revenue|notrail_floatformat:2|intcomma }}
+            generated so far from this project
+            (${{ latest_campaign.project.generated_revenue_fans|notrail_floatformat:2|intcomma }}
+            for investors).
+        </h5>
+        <div class="break">
+            <hr>
+        </div>
+    {% endif %}
+    {% include "artist/includes/artist_past_campaigns.html" %}
+</div>

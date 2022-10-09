@@ -1,0 +1,12 @@
+{% extends "email/base.email" %}
+
+{% block email_subject %}Verify Your Email{% endblock %}
+
+{% block plain_body %}
+    It looks like you changed your email address. Please go to the following link to verify your email address:
+    {{ host }}{{ verify_email_url }}
+{% endblock %}
+
+{% block html_body %}
+    <p>It looks like you changed your email address. Please <a href="{{ host }}{{ verify_email_url }}">click here</a> to verify your email address.</p>
+{% endblock %}

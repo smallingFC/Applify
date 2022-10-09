@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load perdiem %}
+
+{% block socialmeta %}
+    <!-- Google+ data -->
+    <meta itemprop="name" content="INVEST IN {{ artist.name|upper }} ON PERDIEM">
+    <meta itemprop="description" content="PerDiem is a platform where you can invest in music. Earn money by discovering and supporting your favorite artists.">
+    {% thumbnail artist.photo.img "506" as thumb %}
+        <meta itemprop="image" content="{{ thumb.url }}">
+    {% endthumbnail %}
+    <!-- Twitter Card data -->
+    {% if artist.social_twitter %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="{{ artist.social_twitter.username_twitter }}">
+        <meta name="twitter:title" content="INVEST IN {{ artist.name|upper }} ON PERDIEM">
+        <meta name="twitter:description" content="PerDiem is a platform where you can invest in music. Earn money by discovering and supporting your favorite artists.">
+        <meta name="twitter:creator" content="{{ artist.social_twitter.username_twitter }}">
+        {% thumbnail artist.photo.img "208" as thumb %}
+            <meta name="twitter:image:src" content="{{ thumb.url }}">
+        {% endthumbnail %}
+    {% endif %}
+    <!-- Open Graph data -->
+    <meta property="og:title" content="INVEST IN {{ artist.name|upper }} ON PERDIEM" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://{{ host }}{% url 'artist' slug=artist.slug %}" />
+    {% thumbnail artist.photo.img "600" as thumb %}
+        <meta property="og:image" content="{{ thumb.url }}" />
+        <meta property="og:image:width" content="{{ thumb.width }}" />
+        <meta property="og:image:height" content="{{ thumb.height }}" />
+    {% endthumbnail %}
+    <meta property="og:description" content="PerDiem is a platform where you can invest in music. Earn money by discovering and supporting your favorite artists." />
+    <meta property="og:site_name" content="PERDIEM" />
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    {{ form.media }}
+    <link rel="stylesheet" href="{% static "css/artist/artist_detail.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    <h2>{{ artist.name }}</h2>
+    <ul class="tabs" data-tabs id="artist-detail-tabs">
+        <li class="tabs-title {% if not form.errors %}is-active{% endif %}"><a href="#overview" aria-selected="true"><i class="fa fa-user fa-2x tab-icon" aria-hidden="true"></i><span class="artist-tab">Overview</span></a></li>
+        <li class="tabs-title"><a href="#invest"><i class="fa fa-money fa-2x tab-icon" aria-hidden="true"></i><span class="artist-tab">Invest</span></a></li>
+        <li class="tabs-title"><a href="#projects"><i class="fa fa-pie-chart fa-2x tab-icon" aria-hidden="true"></i><span class="artist-tab">Projects</span></a></li>
+        <li class="tabs-title {% if form.errors %}is-active{% endif %}"><a href="#updates"><i class="fa fa-newspaper-o fa-2x tab-icon" aria-hidden="true"></i><span class="artist-tab">Updates</span></a></li>
+    </ul>
+    <div class="tabs-content" data-tabs-content="artist-detail-tabs">
+        {% include "artist/includes/artist_detail_overview.html" %}
+        {% include "artist/includes/artist_detail_invest.html" %}
+        {% include "artist/includes/artist_detail_projects.html" %}
+        {% include "artist/includes/artist_detail_updates.html" %}
+    </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="{% static "js/vendor/Chart.min.js" %}"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script type="text/javascript">
+        var perdiem_percentage = {{ PERDIEM_PERCENTAGE }};
+        var stripe_percentage = {{ STRIPE_PERCENTAGE }};
+        var stripe_flat_fee = {{ STRIPE_FLAT_FEE }};
+        var artist_name = '{{ artist.name|escapejs }}'
+
+        {% if campaign %}
+            var share_value = {{ campaign.value_per_share|escapejs }};
+            var share_value_cents = {{ campaign.value_per_share_cents|escapejs }};
+            var num_shares_remaining = {{ campaign.num_shares_remaining }};
+            var stripe_handler = StripeCheckout.configure({
+                key: '{{ PINAX_STRIPE_PUBLIC_KEY }}',
+                locale: 'auto',
+                email: '{{ request.user.email|escapejs }}',
+                token: function(token) {
+                    var num_shares = parseInt($('.invest-num-shares > input').val());
+                    $.ajax({
+                        url: "{% url 'pinax_stripe_charge' campaign_id=campaign.id %}?format=json",
+                        type: 'POST',
+                        data: JSON.stringify({card: token.id, num_shares: num_shares}),
+                        contentType: 'application/json'
+                    })
+                    .done(function(resp) {
+                        // Show success
+                        $('#success-modal > h1').text('SUCCESS!');
+                        $('#success-modal button.button').click(function() {
+                            window.location.href = '{% url 'profile' %}';
+                        });
+                        var success_message = 'Your investment is being processed. When payment completes, your name will appear in the investor list.';
+                        $('#success-modal > p.success-message').text(success_message);
+                        $('#success-modal > .success-extra').html("<h4>Share this project</h4>{% filter escapejs %}{% include "artist/includes/share_buttons.html" %}{% endfilter %}");
+                        $('#success-modal').foundation('open');
+                    })
+                    .fail(function(resp) {
+                        // Show error
+                        var error_message = 'There was an issue processing your payment.<br />' + resp.responseText;
+                        $('#error-modal > p.error-message').html(error_message);
+                        $('#error-modal').foundation('open');
+                    });
+                }
+            });
+            var ctx = document.getElementById("myChart5").getContext('2d');
+            var myChart5 = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        "Me",
+                        "Other Investors",
+                        {% for percentage_breakdown in campaign.project.artist_percentage %}
+                            "{{ percentage_breakdown.name }}"{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ],
+                    datasets: [{
+                        backgroundColor: ["#212f3c","#34495E", "#85929E", "#d6dbdf"],
+                        data: [
+                            {{ user_investor.percentage_display|floatformat:2 }},
+                            {{ fans_percentage_display|floatformat:2 }},
+                            {% for percentage_breakdown in campaign.project.artist_percentage %}
+                                {{ percentage_breakdown.percentage|floatformat:2 }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        ]
+                    }]
+                }
+            });
+        {% endif %}
+    </script>
+    <script type="text/javascript" src="{% static "js/artist/artist-detail.js" %}"></script>
+{% endblock %}

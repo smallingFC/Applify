@@ -1,0 +1,19 @@
+{% extends "email/base.email" %}
+
+{% block email_subject %}Thank You for investing in {{ artist.name }}!{% endblock %}
+
+{% block plain_body %}
+    Thank you for investing in {{ artist.name }}. You are now the owner of {{ num_shares }} shares in {{ artist.name }}'s campaign {{ campaign.project.reason }}. You'll be able to see how this project is doing along with updates from the artist directly from your profile.
+
+    You will also be able to listen to the music before anyone else and download exclusive + unreleased tracks from your artists in the "My Music" section of your profile.
+
+    Need help finding your profile? After logging in, click on the avatar in the top right corner of the site and you're in. 
+
+    If you have any questions please e-mail us at: support@investperdiem.com
+{% endblock %}
+
+{% block html_body %}
+    <p>Thank you for investing in {{ artist.name }}. You are now the owner of {{ num_shares }} shares in {{ artist.name }}'s campaign {{ campaign.project.reason }}. You'll be able to see how this project is doing along with updates from the artist on your profile.</p>
+    <p>You will also be able to listen to the music before anyone else and download exclusive &#43; unreleased tracks from your artists in the &quot;My Music&quot; section of your profile.</p>
+    <p>If you have any questions please e-mail us at: <a href="mailto:support@investperdiem.com">support@investperdiem.com</a>.</p>
+{% endblock %}

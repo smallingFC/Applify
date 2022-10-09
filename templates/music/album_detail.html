@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load markdown_deux_tags %}
+{% load music %}
+{% load humanize %}
+
+{% block socialmeta %}
+    <!-- Google+ data -->
+    <meta itemprop="name" content="{{ album.name }} by {{ album.project.artist.name }}">
+    <meta itemprop="description" content="Discover and invest in music like {{ album.name }} on PerDiem.">
+    {% thumbnail album.photo.img "506" as thumb %}
+        <meta itemprop="image" content="{{ thumb.url }}">
+    {% endthumbnail %}
+    <!-- Twitter Card data -->
+    {% if album.project.artist.social_twitter %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="{{ album.project.artist.social_twitter.username_twitter }}">
+        <meta name="twitter:title" content="{{ album.name }} by {{ album.project.artist.name }}">
+        <meta name="twitter:description" content="Discover and invest in music like {{ album.name }} on PerDiem.">
+        <meta name="twitter:creator" content="{{ album.project.artist.social_twitter.username_twitter }}">
+        {% thumbnail album.project.artist.photo.img "208" as thumb %}
+            <meta name="twitter:image:src" content="{{ thumb.url }}">
+        {% endthumbnail %}
+    {% endif %}
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ album.name }} by {{ album.project.artist.name }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://{{ host }}{% url 'album' artist_slug=album.project.artist.slug album_slug=album.slug %}" />
+    {% thumbnail album.photo.img "600" as thumb %}
+        <meta property="og:image" content="{{ thumb.url }}" />
+        <meta property="og:image:width" content="{{ thumb.width }}" />
+        <meta property="og:image:height" content="{{ thumb.height }}" />
+    {% endthumbnail %}
+    <meta property="og:description" content="Discover and invest in music like {{ album.name }} on PerDiem." />
+    <meta property="og:site_name" content="PERDIEM" />
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/music/music.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    <h3>{{ album.name }}</h3>
+    <h4>BY {{ album.project.artist.name }}</h4>
+    <div class="project-image">
+        {% thumbnail album.artwork.img "250x250" as thumb %}
+            <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{ album.name }}" />
+        {% endthumbnail %}
+    </div>
+
+    {% if user_is_investor %}
+        <div class="download-container">
+            <a class="button sign-up" href="{{ album.audio.get_temporary_url }}" download>
+                DOWNLOAD
+            </a>
+        </div>
+    {% else %}
+        <h5>You must be an investor in order to listen and download.</h5>
+    {% endif %}
+    <div class="break-small">
+        <hr>
+    </div>
+    <div>
+        <h4>Streams</h4>
+        <h4 class="color-blue">
+            {% for disc in album.discs %}
+               {% for track in disc %}
+                   {{ track.total_streams|intcomma }}{% if not forloop.last %},{% endif %}
+               {% endfor %}
+               {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </h4>
+        <p>
+            {% for disc in album.discs %}
+                {% for track in disc %}
+                    {{ track.name }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+                {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </p>
+        <h4>Downloads</h4>
+        <h4 class="color-blue">
+            {% for disc in album.discs %}
+                {% for track in disc %}
+                    {{ track.total_downloads|intcomma }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+                {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </h4>
+        <p>
+            {% for disc in album.discs %}
+                {% for track in disc %}
+                   {{ track.name }}{% if not forloop.last %},{% endif %}
+               {% endfor %}
+               {% if not forloop.last %},{% endif %}
+           {% endfor %}
+       </p>
+    </div>
+    <div class="break-small">
+        <hr>
+    </div>
+    <h4>Marketplace</h4>
+    <div class="marketplace-container">
+        {% for marketplace_url in album.marketplaceurl_set.all %}
+            <a href="{{ marketplace_url.url }}" target="_blank">
+                {% with "img/marketplace/"|add:marketplace_url.medium|add:".svg" as medium_image %}
+                    <img class="marketplace-icons" src="{% static medium_image %}" alt="{{ marketplace_url.get_medium_display }}" />
+                {% endwith %}
+            </a>
+        {% endfor %}
+    </div>
+
+    {% if album.release_date %}
+        <h4>Released</h4>
+        <h6>{{ album.release_date }}</h6>
+    {% endif %}
+
+    {% if album.albumbio %}
+        <div class="album-bio">
+            <p>{{ album.albumbio.bio|markdown }}</p>
+        </div>
+        <div class="break-small">
+            <hr>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block extrajs %}
+    <script type="text/javascript" src="{% static "js/vendor/Chart.min.js" %}"></script>
+{% endblock %}

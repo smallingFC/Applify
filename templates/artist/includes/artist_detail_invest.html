@@ -1,0 +1,39 @@
+{% load staticfiles %}
+{% load humanize %}
+{% load perdiem %}
+
+<div class="tabs-panel" id="invest">
+    {% if user.is_authenticated %}
+        <h3>Invest in {{ campaign.project.reason }}</h3>
+        <div class="break">
+            <hr>
+        </div>
+        {% include "artist/includes/invest.html" %}
+    {% else %}
+        <h4>To Invest in {{ artist.name }}</h4>
+        {% include "artist/includes/auth_buttons.html" %}
+    {% endif %}
+
+    <div class="break">
+        <hr>
+    </div>
+
+    <h4>CURRENT INVESTORS</h4>
+    <ul class="menu vertical nested is-active">
+        {% for investor in investors %}
+            <li id="investor-block">
+                {% if investor.public_profile_url %}
+                    <a href="{{ investor.public_profile_url }}">
+                        <img class="profile-crop-list" src="{{ investor.avatar_url }}" alt="{{ investor.name }}" />
+                        <br/>{{ investor.name }}
+                {% else %}
+                    {{ investor.name }}
+                {% endif %}
+                {% if investor.public_profile_url %}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+</div>

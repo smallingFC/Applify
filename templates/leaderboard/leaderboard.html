@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load humanize %}
+{% load perdiem %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/extra/stats.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    <h2>Top Investors</h2>
+    <div class="break">
+        <hr>
+    </div>
+    <div class="center">
+        <div class="leaderboard">
+            {% for leader_context in top_earned_investors %}
+                <a href="{{ leader_context.url }}">
+                    <div class="leaderboard-padding button">
+                        <img class="profile-crop" src="{{ leader_context.avatar_url }}" alt="{{ leader_context.name }}" />
+                        <br/>
+                        <h4 class="chart-name">#{{ forloop.counter }}: {{ leader_context.name }}</h4>
+                        <h4 class="chart-amount">${{ leader_context.amount|notrail_floatformat:2|intcomma }}</h4>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

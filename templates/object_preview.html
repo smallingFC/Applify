@@ -1,0 +1,12 @@
+{% load thumbnail %}
+
+<div data-content="{{ object.name }}" class="name">
+    <a class="artist-details name" href="{{ object.url }}">
+        {% thumbnail img "225x225" crop="center" as thumb %}
+            <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{ object.name }}" />
+        {% endthumbnail %}
+        {% block text %}
+            <span class="text-content hide-text"><span>{{ object.name }}</span></span>
+        {% endblock %}
+    </a>
+</div>

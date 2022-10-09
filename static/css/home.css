@@ -1,0 +1,192 @@
+.home-page {
+    min-height: 100vh;
+}
+
+.about {
+    min-height: 800px;
+    background-color: white;
+    padding-top: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+h2.name-header {
+    padding-top: 40px;
+    padding-bottom: 50px;
+    text-align: center;
+    font-size: 35px;
+    font-weight: 200;
+}
+
+.footer-position {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.auth {
+    bottom: 40%;
+}
+
+.social-icon-home {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.color-white {
+    color: white;
+    font-weight: 200;
+}
+
+.title {
+    font-weight: 200;
+    padding: 20px;
+}
+
+li.price {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+
+h2.color-black:hover {
+    color: #85929E;
+}
+
+.sign-up {
+    background-color: #2199e8;
+    font-family: Roboto;
+}
+
+a.learn-more {
+    color: #fff;
+
+}
+
+a.learn-more:hover {
+    color: #85929E;
+}
+
+.home-copy {
+    text-transform: uppercase;
+    color: #4d96ad;
+    font-family: Dosis;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px;
+}
+
+.home-button {
+    margin: 50px;
+    padding: 20px;
+    font-family: Dosis;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.home-icon {
+    color: white;
+    padding: 5px;
+}
+
+.money-icon {
+    color: #4cbd7e;
+    padding: 5px;
+}
+
+.home-description {
+    padding-top: 5%;
+}
+
+.home-logo-about {
+    width: 80px;
+    margin-top: 30px;
+}
+
+.header-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.description-padding {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.header-logo {
+    width: 400px;
+}
+
+.header-text {
+    text-shadow: 2px 2px #000;
+    color: #4cbd7e;
+    font-size: 3em;
+}
+
+.sub-header-text {
+    color: white;
+    font-size: 2em;
+}
+
+.header-position {
+    padding-top: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.img-phone {
+    height: auto;
+    max-height: 500px;
+}
+.about-padding {
+    padding: 20%;
+}
+
+#column-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#leftcolumn, #rightcolumn {
+    float: left;
+    max-width: 400px;
+    padding: 20px;
+    width: auto;
+}
+
+.description-padding {
+    padding-top: 30px;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.portfolio-padding {
+    padding-bottom: 20px;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.youtube-responsive-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.youtube-responsive-container iframe, .youtube-responsive-container object, .youtube-responsive-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

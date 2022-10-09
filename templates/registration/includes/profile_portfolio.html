@@ -1,0 +1,9 @@
+{% load humanize %}
+
+<div class="investments">
+    <h2>My Artists</h2>
+    <div class="break">
+        <hr>
+    </div>
+    {% include "artist/includes/investor_profile_artist_list.html" with artists=artists show_earnings=True %}
+</div>

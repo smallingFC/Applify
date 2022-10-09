@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static "css/artist/artist_preview.css" %}" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="{% static "css/profile/profile.css" %}" type="text/css" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+    <h2 class="profile-header">{% firstof user.get_full_name user.get_username %}</h2>
+    {% if user.userprofile.invest_anonymously %}<p><small>(displays publicly as Anonymous)</small></p>{% endif %}
+
+    {% if artists %}
+        <ul class="tabs" data-tabs id="profile-tabs">
+            <li class="tabs-title is-active"><a href="#updates"><i class="fa fa-newspaper-o fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Updates</span></a></li>
+            <li class="tabs-title"><a href="#portfolio"><i class="fa fa-user fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Artists</span></a></li>
+            <li class="tabs-title"><a href="#music"><i class="fa fa-music fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Music</span></a></li>
+            <li class="tabs-title"><a href="#earnings"><i class="fa fa-dollar fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Earnings</span></a></li>
+        </ul>
+
+        <div class="tabs-content" data-tabs-content="profile-tabs">
+            <div class="tabs-panel is-active" id="updates">
+                {% if updates %}
+                    {% include "artist/includes/artist_updates.html" with updates=updates show_artist_name=True %}
+                {% else %}
+                    <p>This is where you will receive updates from your artists.</p>
+                    <p>Looks like they haven't posted yet, but when they do it'll feed right here.</p>
+                {% endif %}
+            </div>
+            <div class="tabs-panel" id="portfolio">
+                {% include "registration/includes/profile_portfolio.html" %}
+            </div>
+            <div class="tabs-panel" id="music">
+                {% include "registration/includes/profile_music.html" %}
+            </div>
+            <div class="tabs-panel" id="earnings">
+                {% include "registration/includes/profile_earnings.html" %}
+            </div>
+        </div>
+    {% else %}
+        <p>You haven't invested in anything yet!</p>
+        <div class="profile-boxes">
+            <a class="button text-center box-margin view-artists-box" href="{% url 'artists' %}">START INVESTING</a>
+        </div>
+    {% endif %}
+{% endblock %}

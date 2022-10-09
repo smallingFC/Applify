@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="extra-padding">Unsubscribed</h3>
+    <div class="extra-padding">
+        {% if success %}
+            <p>The email address {{ user.email }} has been unsuccessfully unsubscribed from {{ subscription_type_display }} on PerDiem.</p>
+        {% else %}
+            <p>This link is invalid or has expired. Please try a link from a more recent email or sign in and try again.</p>
+        {% endif %}
+    </div>
+{% endblock %}

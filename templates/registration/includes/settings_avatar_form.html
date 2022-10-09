@@ -1,0 +1,23 @@
+{% extends "registration/includes/settings_form.html" %}
+
+{% block form_inner_html %}
+    {{ form.non_field_errors }}
+    <p>Select one of your existing avatars:</p>
+    {{ form.avatar.errors }}
+    {% for radio in form.avatar %}
+        <label class="extra-padding" for="{{ radio.id_for_label }}">
+            {% with label=radio.choice_label %}
+                {% for k, avatar in avatars.items %}
+                    {% if k == label %}
+                        <img src="{{ avatar }}" alt="{{ label }}" width="150" height="150" />
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+            {{ radio.choice_label }}
+            <span class="radio">{{ radio.tag }}</span>
+        </label>
+    {% endfor %}
+    <p>Or upload a new one <small>(2MB maximum size)</small>:</p>
+    {{ form.custom_avatar.errors }}
+    {{ form.custom_avatar }}
+{% endblock %}

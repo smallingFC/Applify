@@ -1,0 +1,13 @@
+{% load humanize %}
+
+<div class="investments">
+    <h1 class="green-color">${{ total_earned|floatformat:2|intcomma }}</h1>
+    <h3 class="roi">Return on Investment</h3>
+    <h4 class="green-color"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ percentage|floatformat:2|intcomma }}% | <span style="color: #4d96ad">${{ total_investments|floatformat:2|intcomma }}</span></h4>
+    <div class="break">
+        <hr>
+    </div>
+    <div class="center extra-padding">
+        <a class="button sign-up uppercase" href="{% url 'contact' %}?inquiry=cash_out">Request Cash Out</a>
+    </div>
+</div>

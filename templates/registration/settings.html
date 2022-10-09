@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Settings</h2>
+    <ul class="tabs nav-settings" data-tabs id="settings-tabs">
+        <li class="tabs-title {% if 'edit_name' in forms_with_errors or not forms_with_errors %}is-active{% endif %}"><a href="#name"><i class="fa fa-user fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Name</span></a></li>
+        <li class="tabs-title {% if 'edit_avatar' in forms_with_errors %}is-active{% endif %}"><a href="#avatar"><i class="fa fa-photo fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Avatar</span></a></li>
+        <li class="tabs-title {% if 'change_password' in forms_with_errors %}is-active{% endif %}"><a href="#password"><i class="fa fa-lock fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Password</span></a></li>
+        <li class="tabs-title {% if 'email_preferences' in forms_with_errors %}is-active{% endif %}"><a href="#email-preferences"><i class="fa fa-envelope-o fa-2x tab-icon" aria-hidden="true"></i><span class="profile-name">Email Preferences</span></a></li>
+    </ul>
+    <div class="break">
+        <hr>
+    </div>
+    <div class="tabs-content" data-tabs-content="settings-tabs">
+        {% include "registration/includes/settings_form.html" with form_name='edit_name' tab_name='name' form=edit_name_form is_default_form=True %}
+        {% include "registration/includes/settings_avatar_form.html" with form_name='edit_avatar' tab_name='avatar' includes_files=True form=edit_avatar_form %}
+        {% include "registration/includes/settings_form.html" with form_name='change_password' tab_name='password' form=change_password_form %}
+        {% include "registration/includes/settings_form.html" with form_name='email_preferences' tab_name='email-preferences' form=email_preferences_form %}
+    </div>
+{% endblock %}

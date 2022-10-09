@@ -1,0 +1,26 @@
+<div id="share-buttons" class="center"> 
+    <!-- Email -->
+    <a href="mailto:?Subject={{ artist.name|urlencode }}%20on%20PerDiem&amp;Body=I%20just%20invested%20in%20{{ artist.name|urlencode }}%20on%20{{ host }}{% url 'artist' slug=artist.slug %}">
+        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+    </a>
+
+    <!-- Facebook -->
+    <a href="http://www.facebook.com/sharer.php?u={{ host }}{% url 'artist' slug=artist.slug %}" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+    </a>
+
+    <!-- Google+ -->
+    <a href="https://plus.google.com/share?url={{ host }}{% url 'artist' slug=artist.slug %}" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ host }}{% url 'artist' slug=artist.slug %}" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+    </a>
+
+    <!-- Twitter -->
+    <a href="https://twitter.com/share?url={{ host }}{% url 'artist' slug=artist.slug %}&amp;text=I%20just%20invested%20in%20{{ artist.name }}%20on%20@perdiemmusic&amp;hashtags=supportmusic" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+    </a>
+</div>

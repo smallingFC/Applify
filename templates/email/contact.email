@@ -1,0 +1,25 @@
+{% extends "email/base.email" %}
+
+{% block email_subject %}{{ inquiry }}{% endblock %}
+
+{% block plain_body %}
+    {% if user_id %}
+        User ID: {{ user_id }}
+    {% endif %}
+    Email: {{ email }}
+    {% if first_name or last_name %}
+        Name: {{ first_name }}{% if first_name and last_name %} {% endif %}{{ last_name }}
+    {% endif %}
+    Message: {{ message }}
+{% endblock %}
+
+{% block html_body %}
+    {% if user_id %}
+        <p><strong>User ID</strong>: {{ user_id }}</p>
+    {% endif %}
+    <p><strong>Email</strong>: {{ email }}</p>
+    {% if first_name or last_name %}
+        <p><strong>Name</strong>: {{ first_name }}{% if first_name and last_name %} {% endif %}{{ last_name }}</p>
+    {% endif %}
+    <p><strong>Message</strong>: {{ message }}</p>
+{% endblock %}
